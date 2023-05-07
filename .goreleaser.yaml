@@ -13,6 +13,7 @@ builds:
       - amd64
       - arm64
       - mips
+      - mipsel
       - 386
     gomips:
       - hardfloat
