@@ -6,8 +6,6 @@ builds:
     env: [CGO_ENABLED=0]
     goos:
       - linux
-      - darwin
-      - windows
     goarch:
       - arm
       - amd64
@@ -29,40 +27,6 @@ builds:
     mod_timestamp: '{{ .CommitTimestamp }}'
     tags:
       - load_wgnt_from_rsrc
-
-  - id: netbird-mgmt
-    dir: management
-    env:
-    - CGO_ENABLED=1
-    - >-
-      {{- if eq .Runtime.Goos "linux" }}
-        {{- if eq .Arch "arm64"}}CC=aarch64-linux-gnu-gcc{{- end }}
-        {{- if eq .Arch "arm"}}CC=arm-linux-gnueabihf-gcc{{- end }}
-      {{- end }}
-    binary: netbird-mgmt
-    goos:
-      - linux
-    goarch:
-      - amd64
-      - arm64
-      - arm
-    ldflags:
-      - -s -w -X github.com/netbirdio/netbird/version.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}} -X main.builtBy=goreleaser
-    mod_timestamp: '{{ .CommitTimestamp }}'
-
-  - id: netbird-signal
-    dir: signal
-    env: [CGO_ENABLED=0]
-    binary: netbird-signal
-    goos:
-      - linux
-    goarch:
-      - amd64
-      - arm64
-      - arm
-    ldflags:
-      - -s -w -X github.com/netbirdio/netbird/version.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}} -X main.builtBy=goreleaser
-    mod_timestamp: '{{ .CommitTimestamp }}'
 
 archives:
   - builds:
