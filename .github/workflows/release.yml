@@ -59,17 +59,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Install OS build dependencies
         run: sudo apt update && sudo apt install -y -q gcc-arm-linux-gnueabihf gcc-aarch64-linux-gnu
-
-      - name: Install rsrc
-        run: go install github.com/akavel/rsrc@v0.10.2
-      - name: Generate windows rsrc amd64
-        run: rsrc -arch amd64 -ico client/ui/netbird.ico -manifest client/manifest.xml -o client/resources_windows_amd64.syso
-      - name: Generate windows rsrc arm64
-        run: rsrc -arch arm64 -ico client/ui/netbird.ico -manifest client/manifest.xml -o client/resources_windows_arm64.syso
-      - name: Generate windows rsrc arm
-        run: rsrc -arch arm -ico client/ui/netbird.ico -manifest client/manifest.xml -o client/resources_windows_arm.syso
-      - name: Generate windows rsrc 386
-        run: rsrc -arch 386 -ico client/ui/netbird.ico -manifest client/manifest.xml -o client/resources_windows_386.syso
+        
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
@@ -77,10 +67,7 @@ jobs:
           version: ${{ env.GORELEASER_VER }}
           args: release --rm-dist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_TAP_GITHUB_TOKEN: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
-          UPLOAD_DEBIAN_SECRET: ${{ secrets.PKG_UPLOAD_SECRET }}
-          UPLOAD_YUM_SECRET: ${{ secrets.PKG_UPLOAD_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
       -
         name: upload non tags for debug purposes
         uses: actions/upload-artifact@v2
