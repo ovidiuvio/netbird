@@ -10,7 +10,7 @@ builds:
       - windows
     goarch:
       - mips
-      - mipsel
+      - mipsle
     gomips:
       - hardfloat
       - softfloat
