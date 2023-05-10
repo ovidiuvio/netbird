@@ -11,9 +11,6 @@ builds:
       - amd64
       - arm64
       - 386
-    gomips:
-      - hardfloat
-      - softfloat
     ignore:
       - goos: windows
         goarch: arm64
@@ -27,8 +24,8 @@ builds:
     tags:
       - load_wgnt_from_rsrc
 
-  - id: netbird-mips
-    dir: client-mips
+  - id: netbird-static
+    dir: client
     binary: netbird
     env: [CGO_ENABLED=0]
     goos:
