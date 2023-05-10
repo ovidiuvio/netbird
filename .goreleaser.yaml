@@ -81,6 +81,7 @@ builds:
 archives:
   - builds:
       - netbird
+      - netbird-static
 
 nfpms:
 
